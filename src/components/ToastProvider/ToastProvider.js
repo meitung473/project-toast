@@ -5,6 +5,20 @@ const ToastContext = React.createContext();
 function ToastProvider({ children }) {
     const [toasts, setToasts] = React.useState([]);
 
+    React.useEffect(() => {
+        function handleKeyDown(e) {
+            if (e.code === "Escape") {
+                setToasts([]);
+                // close one by one
+                // setToasts((currentToasts) => currentToasts.slice(1));
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
+
     const value = React.useMemo(() => {
         function addToast({ variant, message }) {
             setToasts([

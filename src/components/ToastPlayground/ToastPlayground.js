@@ -16,9 +16,7 @@ function ToastPlayground() {
 
     function handleSubmit(e) {
         e.preventDefault();
-
         addToast({ variant, message });
-
         setMessage("");
     }
 
