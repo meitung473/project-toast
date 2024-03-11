@@ -11,7 +11,6 @@ function ToastPlayground() {
 
     const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
 
-    const [isShow, setIsShow] = React.useState(false);
     const [toasts, setToasts] = React.useState([]);
 
     function handleSubmit(e) {
@@ -91,7 +90,6 @@ function ToastPlayground() {
                                     </label>
                                 );
                             })}
-                            {/* TODO Other Variant radio buttons here */}
                         </div>
                     </div>
 
