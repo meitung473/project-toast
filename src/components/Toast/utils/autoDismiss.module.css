@@ -1,7 +1,10 @@
-[data-auto-dismissed="on"] {
+.dismissed {
     opacity: 0;
     transform: translateX(100%);
     transition-property: all;
     transition-timing-function: ease-out;
+
+    /* same as toast wrapper animation*/
     transition-duration: 800ms;
+    /* transition-delay: var(--delay); */
 }

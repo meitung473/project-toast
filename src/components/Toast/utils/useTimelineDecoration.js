@@ -1,14 +1,16 @@
 import React from "react";
-import "./timeline.module.css";
+import * as styles from "./timeline.module.css";
+
 function useTimelineDecoration(toastElement, { duration, color, delay }) {
     React.useEffect(() => {
         let toast = toastElement?.current;
         if (!toast) return;
-        if (!toast.getAttribute("data-timeline")) return;
+        toast.classList.add(styles["timeline"]);
         toast.style.setProperty("--timeline-delay", `${delay}ms`);
         toast.style.setProperty("--timeline-duration", `${duration}ms`);
-        toast.style.setProperty("--timeline-bg-color", color);
-        toast.setAttribute("data-timeline", "on");
+        toast.style.setProperty("--bg-color", color);
+
+        toast.setAttribute("data-running", "true");
     }, [color, duration, toastElement, delay]);
 }
 

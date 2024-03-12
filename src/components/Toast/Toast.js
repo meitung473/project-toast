@@ -11,6 +11,7 @@ import VisuallyHidden from "../VisuallyHidden";
 
 import { useToast } from "../ToastProvider/ToastProvider";
 import styles from "./Toast.module.css";
+
 import useAutoDismiss from "./utils/useAutoDismiss";
 import useTimelineDecoration from "./utils/useTimelineDecoration";
 
@@ -20,6 +21,7 @@ const ICONS_BY_VARIANT = {
     success: CheckCircle,
     error: AlertOctagon,
 };
+
 function Toast({ children, variant, id, duration, delay }) {
     const Icon = ICONS_BY_VARIANT[variant];
     const {
@@ -28,32 +30,23 @@ function Toast({ children, variant, id, duration, delay }) {
         duration: defaultDuration,
     } = useToast();
 
-    const elementRef = React.useRef();
-
     // auto dismiss
-    let dur = duration || defaultDuration;
-    let del = delay || defaultDelay;
-    const { setDeleted } = useAutoDismiss(elementRef, {
-        waitSeconds: dur + del,
-        onEnd: () => {
+    const { elementRef, setDeleted } = useAutoDismiss({
+        waitSeconds: (duration || defaultDuration) + (delay || defaultDelay),
+        callback: () => {
             dismissToast(id);
         },
     });
 
     // timeline animation
     useTimelineDecoration(elementRef, {
-        duration: dur,
-        delay: del,
+        duration: duration || defaultDuration,
+        delay: delay || defaultDelay,
         color: `var(--color-${variant})`,
     });
 
     return (
-        <div
-            className={`${styles.toast} ${styles[variant]}`}
-            ref={elementRef}
-            data-auto-dismissed
-            data-timeline
-        >
+        <div className={`${styles.toast} ${styles[variant]}`} ref={elementRef}>
             <div className={styles.iconContainer}>
                 <Icon size={24} />
             </div>
@@ -65,6 +58,7 @@ function Toast({ children, variant, id, duration, delay }) {
                 className={styles.closeButton}
                 onClick={() => {
                     setDeleted(true);
+                    //   dismissToast(id);
                 }}
                 aria-label="Dismiss message"
                 aria-live="off"
