@@ -59,9 +59,9 @@ Our `Toast` component should support 4 different variants:
 
 **Acceptance Criteria:**
 
-- The “Message” textarea should be driven by React state
-- Using the data in the `VARIANT_OPTIONS` array, render 4 radio buttons within the “Variant” row. They should all be part of the same group (so that only one can be selected at a time). They should also be driven by React state.
-- There should be no key warnings in the console.
+- [x] The “Message” textarea should be driven by React state
+- [x] Using the data in the `VARIANT_OPTIONS` array, render 4 radio buttons within the “Variant” row. They should all be part of the same group (so that only one can be selected at a time). They should also be driven by React state.
+- [x] There should be no key warnings in the console.
 
 ---
 
@@ -98,12 +98,12 @@ If you get stuck, you may wish to review the following lessons from the course:
 
 **Acceptance Criteria:**
 
-- The toast component should show the message entered in the textarea, essentially acting as a “live preview”.
-- The toast's styling should be affected by the “variant” selected:
-  - The colors can be set by specifying the appropriate class on the top-level `<div>`. By default, it's set to `styles.notice`, but you'll want to dynamically select the class based on the variant (eg. for a success toast, you'll want to apply `styles.success`).
-  - The icon can be selected from the `ICONS_BY_VARIANT` object. Feel free to re-organize things however you wish!
-- The toast should be hidden by default, but can be shown by clicking the "Pop Toast!” button.
-- The toast can be hidden by clicking the “×” button within the toast.
+- [x] The toast component should show the message entered in the textarea, essentially acting as a “live preview”.
+- [x] The toast's styling should be affected by the “variant” selected:
+  - [x] The colors can be set by specifying the appropriate class on the top-level `<div>`. By default, it's set to `styles.notice`, but you'll want to dynamically select the class based on the variant (eg. for a success toast, you'll want to apply `styles.success`).
+  - [x] The icon can be selected from the `ICONS_BY_VARIANT` object. Feel free to re-organize things however you wish!
+- [x] The toast should be hidden by default, but can be shown by clicking the "Pop Toast!” button.
+- [x] The toast can be hidden by clicking the “×” button within the toast.
 
 ---
 
@@ -145,11 +145,11 @@ Some lessons that might help, from the course:
 
 **Acceptance Criteria:**
 
-- [ ] Instead of live-editing a single Toast instance, the playground should be used to push new toast messages onto a stack, rendered inside `ToastShelf` and shown in the corner of the page.
-- [ ] When “Pop Toast!” is clicked, the message/variant form controls should be reset to their default state (`message` should be an empty string, `variant` should be "notice").
-- [ ] Clicking the “×” button inside the toast should remove that specific toast (but leave the rest untouched).
-- [ ]  A proper `<form>` tag should be used in the `ToastPlayground`. The toast should be created when submitting the form.
-- [ ] **There should be no key warnings in the console!** Keys should be unique, and you should not use the index.
+- [x] Instead of live-editing a single Toast instance, the playground should be used to push new toast messages onto a stack, rendered inside `ToastShelf` and shown in the corner of the page.
+- [x] When “Pop Toast!” is clicked, the message/variant form controls should be reset to their default state (`message` should be an empty string, `variant` should be "notice").
+- [x] Clicking the “×” button inside the toast should remove that specific toast (but leave the rest untouched).
+- [x]  A proper `<form>` tag should be used in the `ToastPlayground`. The toast should be created when submitting the form.
+- [x] **There should be no key warnings in the console!** Keys should be unique, and you should not use the index.
 
 ---
 
@@ -161,11 +161,11 @@ In this exercise, we'll refactor our application to use the [“Provider compone
 
 **Acceptance Criteria:**
 
-- Create a new component, `ToastProvider`, that will serve as the “keeper” for all toast-related state.
+- [x] Create a new component, `ToastProvider`, that will serve as the “keeper” for all toast-related state.
   - To generate a new component, you can use the “new-component” script! Try tunning `npm run new-component ToastProvider` in the terminal.
-- Components that require the state should pull it from context with the `useContext` hook, rather than passing through props.
-- As we saw in the [“Provider Components” lesson](https://courses.joshwcomeau.com/joy-of-react/04-component-design/08.04-provider-component), we can also share _functions_ that allow consumers to alter the state. Consider making functions available that will create a new toast, or dismiss a specific toast.
-- This is a “refactor” exercise. The user experience shouldn't change at all.
+- [x] Components that require the state should pull it from context with the `useContext` hook, rather than passing through props.
+- [x] As we saw in the [“Provider Components” lesson](https://courses.joshwcomeau.com/joy-of-react/04-component-design/08.04-provider-component), we can also share _functions_ that allow consumers to alter the state. Consider making functions available that will create a new toast, or dismiss a specific toast.
+- [x] This is a “refactor” exercise. The user experience shouldn't change at all.
 
 ---
 
@@ -175,7 +175,7 @@ Our component so far works pretty well for sighted mouse users, but the experien
 
 In this exercise, we'll improve the experience for two different groups of people:
 
-- Sighted keyboard users
+- Sighted key [x]board users
 - Users who use a screen reader
 
 ### 5.1: Keyboard users
@@ -202,8 +202,8 @@ That way, we aren't interrupting the user. They can read the messages in their o
 
 **Acceptance Criteria:**
 
-- Hitting the "Escape" key should dismiss all toasts
-- You'll want to do this with a `useEffect` hook, but it's up to you to decide which component should bear this responsibility.
+- [x] Hitting the "Escape" key should dismiss all toasts
+- [x] You'll want to do this with a `useEffect` hook, but it's up to you to decide which component should bear this responsibility.
 
 ### 5.2: Screen reader users
 
@@ -254,10 +254,10 @@ Let's imagine we reach out to an accessibility specialist, and they do us the fa
 
 **Acceptance Criteria:**
 
-- The `<ol>` should have the specified role / aria tags
-- The toast's content should be prefixed with the variant, using the `VisuallyHidden` component.
-  - _NOTE:_ The diff above shows an _error_ toast, but the prefix should be dynamic, based on the variant.
-- The “Dismiss message” content in the close button should be moved to an `aria-label`. `aria-live` should also be set to "off".
+- [x] The `<ol>` should have the specified role / aria tags
+- [x] The toast's content should be prefixed with the variant, using the `VisuallyHidden` component.
+  -  _NOTE:_ The diff above shows an _error_ toast, but the prefix should be dynamic, based on the variant.
+- [x] The “Dismiss message” content in the close button should be moved to an `aria-label`. `aria-live` should also be set to "off".
 
 ---
 
@@ -281,8 +281,8 @@ useEscapeKey(() => {
 
 **Acceptance Criteria:**
 
-- We want to create a new generic hook that makes it easy to listen for `keydown` events in React. It's up to you to come up with the best “consumer experience”.
-- Because this is a generic hook, it shouldn't be stored with the `ToastProvider` component. Create a new `/src/hooks` directory, and place your new hook in there.
-- The `ToastProvider` component should use this new hook.
-- **Make sure there are no ESLint warnings.**
+- [x] We want to create a new generic hook that makes it easy to listen for `keydown` events in React. It's up to you to come up with the best “consumer experience”.
+- [x] Because this is a generic hook, it shouldn't be stored with the `ToastProvider` component. Create a new `/src/hooks` directory, and place your new hook in there.
+- [x] The `ToastProvider` component should use this new hook.
+- [x] **Make sure there are no ESLint warnings.**
   - In VSCode, ESLint warnings are shown as squiggly yellow underlines. You can view the warning by hovering over the underlined characters, or by opening the “Problems” tab (`⌘` + `Shift` + `M`, or Ctrl + `Shift` + `M`).
