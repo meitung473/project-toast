@@ -12,6 +12,9 @@ import VisuallyHidden from "../VisuallyHidden";
 import { useToast } from "../ToastProvider/ToastProvider";
 import styles from "./Toast.module.css";
 
+import useAutoDismiss from "./utils/useAutoDismiss";
+import useTimelineDecoration from "./utils/useTimelineDecoration";
+
 const ICONS_BY_VARIANT = {
     notice: Info,
     warning: AlertTriangle,
@@ -19,22 +22,43 @@ const ICONS_BY_VARIANT = {
     error: AlertOctagon,
 };
 
-function Toast({ children, variant, id }) {
+function Toast({ children, variant, id, duration, delay }) {
     const Icon = ICONS_BY_VARIANT[variant];
-    const { dismissToast } = useToast();
+    const {
+        dismissToast,
+        delay: defaultDelay,
+        duration: defaultDuration,
+    } = useToast();
+
+    // auto dismiss
+    const { elementRef, setDeleted } = useAutoDismiss({
+        waitSeconds: (duration || defaultDuration) + (delay || defaultDelay),
+        callback: () => {
+            dismissToast(id);
+        },
+    });
+
+    // timeline animation
+    useTimelineDecoration(elementRef, {
+        duration: duration || defaultDuration,
+        delay: delay || defaultDelay,
+        color: `var(--color-${variant})`,
+    });
+
     return (
-        <div className={`${styles.toast} ${styles[variant]}`}>
+        <div className={`${styles.toast} ${styles[variant]}`} ref={elementRef}>
             <div className={styles.iconContainer}>
                 <Icon size={24} />
             </div>
             <p className={styles.content}>
-                <VisuallyHidden>+ error -</VisuallyHidden>
+                <VisuallyHidden> error -</VisuallyHidden>
                 {children}
             </p>
             <button
                 className={styles.closeButton}
                 onClick={() => {
-                    dismissToast(id);
+                    setDeleted(true);
+                    //   dismissToast(id);
                 }}
                 aria-label="Dismiss message"
                 aria-live="off"

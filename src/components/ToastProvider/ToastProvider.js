@@ -3,13 +3,23 @@ import useEscapeKey from "../../hooks/useEscapeKey";
 
 const ToastContext = React.createContext();
 
-function ToastProvider({ children }) {
+// dismissMode : "oneByOne" | "all"
+
+function ToastProvider({
+    children,
+    dismissMode = "all",
+    delay = 800,
+    duration = 2000,
+}) {
     const [toasts, setToasts] = React.useState([]);
 
     useEscapeKey(() => {
-        // setToasts([]);
-        // close one by one
-        setToasts((currentToasts) => currentToasts.slice(1));
+        if (dismissMode === "oneByOne") {
+            // close one by one
+            setToasts((currentToasts) => currentToasts.slice(1));
+        } else {
+            setToasts([]);
+        }
     });
 
     const value = React.useMemo(() => {
@@ -29,8 +39,9 @@ function ToastProvider({ children }) {
                 return currentToasts.filter(({ id }) => toastId !== id);
             });
         }
-        return { toasts, addToast, dismissToast };
-    }, [toasts]);
+
+        return { toasts, addToast, dismissToast, delay, duration };
+    }, [toasts, delay, duration]);
 
     return (
         <ToastContext.Provider value={value}>{children}</ToastContext.Provider>

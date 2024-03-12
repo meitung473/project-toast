@@ -6,7 +6,7 @@ import ToastProvider from "../ToastProvider/ToastProvider";
 
 function App() {
     return (
-        <ToastProvider>
+        <ToastProvider delay={800} duration={2000}>
             <ToastPlayground />
             <Footer />
         </ToastProvider>

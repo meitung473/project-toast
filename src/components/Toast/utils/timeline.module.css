@@ -1,0 +1,26 @@
+.timeline::before {
+    content: "";
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    height: 4px;
+    width: 100%;
+    transform: scaleX(0%);
+    transform-origin: center left;
+    display: inline-block;
+    user-select: none;
+}
+.timeline[data-running="true"]::before {
+    animation-name: timeline;
+    animation-duration: var(--timeline-duration);
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    background-color: var(--bg-color);
+    animation-delay: var(--timeline-delay);
+}
+
+@keyframes timeline {
+    to {
+        transform: scaleX(100%);
+    }
+}
