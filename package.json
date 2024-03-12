@@ -25,5 +25,9 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "staticFiles": {
     "staticPath": "assets"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.35",
+    "postcss-modules": "^4.3.1"
   }
 }
