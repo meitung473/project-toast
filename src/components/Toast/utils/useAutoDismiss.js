@@ -1,17 +1,27 @@
 import * as React from "react";
-import styles from "./autoDismiss.module.css";
+import "./autoDismiss.module.css";
 
-function useAutoDismiss({ callback, waitSeconds }) {
+function useAutoDismiss(elementRef, { onEnd, waitSeconds }) {
     const [deleted, setDeleted] = React.useState(false);
-    const elementRef = React.useRef();
+
+    if (typeof onEnd !== "function") {
+        throw new Error("OnEnd must be a function");
+    }
 
     // add transition
     React.useEffect(() => {
-        if (typeof window === "undefined") return;
-
+        if (!elementRef || typeof window === "undefined") return;
         let timeoutId;
+
+        // if data-auto-dismissed is unset,toast dismisses by button manually.
+        if (!elementRef.current.getAttribute("data-auto-dismissed")) {
+            deleted && onEnd();
+            return;
+        }
+
+        // while data-auto-dismissed set,it'll start transition.
         function fadeOut() {
-            elementRef.current.classList.add(styles.dismissed);
+            elementRef.current.setAttribute("data-auto-dismissed", "on");
         }
         timeoutId = window.setTimeout(fadeOut, deleted ? 0 : waitSeconds);
 
@@ -19,13 +29,17 @@ function useAutoDismiss({ callback, waitSeconds }) {
             if (!timeoutId) return;
             window.clearTimeout(timeoutId);
         };
-    }, [deleted, waitSeconds]);
+    }, [deleted, waitSeconds, elementRef, onEnd]);
 
     // when fadeout transition end, delete the node
     React.useEffect(() => {
+        if (!elementRef) return;
+
         let toast = elementRef.current;
+        if (typeof toast.getAttribute("data-auto-dismissed") === "undefined")
+            return;
         function handleTransitionEnd(e) {
-            callback();
+            onEnd();
         }
 
         // delay , duration
@@ -33,7 +47,7 @@ function useAutoDismiss({ callback, waitSeconds }) {
         return () => {
             toast.addEventListener("transitionend", handleTransitionEnd);
         };
-    }, [callback]);
+    }, [onEnd, elementRef]);
 
     return { elementRef, deleted, setDeleted };
 }
