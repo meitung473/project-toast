@@ -1,4 +1,4 @@
-.timeline::before {
+:local([data-timeline])::before {
     content: "";
     z-index: 1;
     position: absolute;
@@ -10,13 +10,13 @@
     display: inline-block;
     user-select: none;
 }
-.timeline[data-running="true"]::before {
+:local([data-timeline="on"])::before {
     animation-name: timeline;
     animation-duration: var(--timeline-duration);
     animation-timing-function: ease-in-out;
     animation-fill-mode: both;
-    background-color: var(--bg-color);
     animation-delay: var(--timeline-delay);
+    background-color: var(--timeline-bg-color);
 }
 
 @keyframes timeline {
