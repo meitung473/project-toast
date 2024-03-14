@@ -12,7 +12,7 @@ function ToastPlayground() {
 
     const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
 
-    const { addToast, toasts } = useToast();
+    const { addToast } = useToast();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -26,8 +26,7 @@ function ToastPlayground() {
                 <img alt="Cute toast mascot" src="./toast.png" />
                 <h1>Toast Playground</h1>
             </header>
-
-            {toasts.length > 0 && <ToastSelf toasts={toasts} />}
+            <ToastSelf />
             <form onSubmit={handleSubmit}>
                 <div className={styles.controlsWrapper}>
                     <div className={styles.row}>

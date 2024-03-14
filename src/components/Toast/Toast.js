@@ -58,7 +58,7 @@ function Toast({ children, variant, id, duration, delay }) {
                 <Icon size={24} />
             </div>
             <p className={styles.content}>
-                <VisuallyHidden> error -</VisuallyHidden>
+                <VisuallyHidden> {variant} - </VisuallyHidden>
                 {children}
             </p>
             <button

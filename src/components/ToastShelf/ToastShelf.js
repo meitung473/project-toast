@@ -4,8 +4,8 @@ import Toast from "../Toast";
 import { useToast } from "../ToastProvider";
 import styles from "./ToastShelf.module.css";
 
-function ToastShelf({ toasts }) {
-    const { delay } = useToast();
+function ToastShelf() {
+    const { toasts, delay } = useToast();
     return (
         <ol
             className={styles.wrapper}
